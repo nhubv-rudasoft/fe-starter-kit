@@ -1,0 +1,33 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@libs/config": ["libs/config/src/index.ts"],
+      "@libs/data-access/interceptor": ["libs/data-access/interceptor/src/index.ts"],
+      "@libs/data-access/service": ["libs/data-access/service/src/index.ts"],
+      "@libs/data-access/slice": ["libs/data-access/slice/src/index.ts"],
+      "@libs/data-access/state": ["libs/data-access/state/src/index.ts"],
+      "@libs/features/auth": ["libs/features/auth/src/index.ts"],
+      "@libs/types": ["libs/types/src/index.ts"],
+      "@libs/ui/layout": ["libs/ui/layout/src/index.ts"],
+      "@libs/ui/provider": ["libs/ui/provider/src/index.ts"],
+      "@libs/ui/raptor": ["libs/ui/raptor/src/index.ts"],
+      "@libs/ui/router": ["libs/ui/router/src/index.ts"],
+      "@libs/utils": ["libs/utils/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

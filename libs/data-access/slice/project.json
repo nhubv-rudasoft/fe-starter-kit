@@ -1,0 +1,19 @@
+{
+  "name": "slice",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/data-access/slice/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/data-access/slice",
+        "main": "libs/data-access/slice/src/index.ts",
+        "tsConfig": "libs/data-access/slice/tsconfig.lib.json",
+        "assets": ["libs/data-access/slice/*.md"]
+      }
+    }
+  }
+}

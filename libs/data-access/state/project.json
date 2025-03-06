@@ -1,0 +1,19 @@
+{
+  "name": "state",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/data-access/state/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/data-access/state",
+        "main": "libs/data-access/state/src/index.ts",
+        "tsConfig": "libs/data-access/state/tsconfig.lib.json",
+        "assets": ["libs/data-access/state/*.md"]
+      }
+    }
+  }
+}
