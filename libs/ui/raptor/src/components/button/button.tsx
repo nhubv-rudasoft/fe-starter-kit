@@ -11,7 +11,7 @@ const RpButton: React.FC<ButtonProps> = ({
   disabled = false,
   className,
   size = 'md',
-  isLoading,
+  loading,
   key,
   icon,
   onSubmit,
@@ -23,8 +23,8 @@ const RpButton: React.FC<ButtonProps> = ({
       onClick={onClick}
       onSubmit={onSubmit}
       onReset={onReset}
-      disabled={disabled || isLoading}
-      className={`${BTN_CLASSES.base} ${BTN_CLASSES.variant[variant]} ${disabled || isLoading ? BTN_CLASSES.disabled : ''} ${className} ${BTN_CLASSES.size[size]} ${
+      disabled={disabled || loading}
+      className={`${BTN_CLASSES.base} ${BTN_CLASSES.variant[variant]} ${disabled || loading ? BTN_CLASSES.disabled : ''} ${className} ${BTN_CLASSES.size[size]} ${
         icon?.position === 'left' ? BTN_CLASSES.icon.left : BTN_CLASSES.icon.right
       }`}
       key={key}
@@ -32,15 +32,15 @@ const RpButton: React.FC<ButtonProps> = ({
       <div className='relative flex items-center justify-center gap-2'>
         {icon && icon.position === 'left' && (
           <>
-            {isLoading && <RpSpinner size={size} />}
-            {!isLoading && icon.element}
+            {loading && <RpSpinner size={size} />}
+            {!loading && icon.element}
           </>
         )}
         {children}
         {icon && icon.position === 'right' && (
           <>
-            {isLoading && <RpSpinner size={size} />}
-            {!isLoading && icon.element}
+            {loading && <RpSpinner size={size} />}
+            {!loading && icon.element}
           </>
         )}
       </div>

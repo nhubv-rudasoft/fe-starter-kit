@@ -28,7 +28,7 @@ export function NxWelcome({ title }: { title: string }) {
         type={'button'}
         variant={'primary'}
         size={'md'}
-        isLoading={isLoading}
+        loading={isLoading}
         icon={{
           element: <Camera size={18} />,
           position: 'left',
