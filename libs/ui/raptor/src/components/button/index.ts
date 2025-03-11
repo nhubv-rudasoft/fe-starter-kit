@@ -1,1 +1,1 @@
-export { default as RpButton } from './button';
+export { Button, buttonVariants } from './button';

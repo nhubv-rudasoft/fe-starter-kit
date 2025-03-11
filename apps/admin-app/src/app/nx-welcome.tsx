@@ -1,6 +1,4 @@
-import { Camera } from 'lucide-react';
 import { useState } from 'react';
-import { RpButton } from '@libs/ui/raptor';
 
 export function NxWelcome({ title }: { title: string }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -24,20 +22,6 @@ export function NxWelcome({ title }: { title: string }) {
           apps/admin-app/src/app/nx-welcome.tsx
         </code>
       </p>
-      <RpButton
-        type={'button'}
-        variant={'primary'}
-        size={'md'}
-        loading={isLoading}
-        icon={{
-          element: <Camera size={18} />,
-          position: 'left',
-        }}
-        className='w-32'
-        onClick={handleClick}
-      >
-        Click me
-      </RpButton>
     </div>
   );
 }

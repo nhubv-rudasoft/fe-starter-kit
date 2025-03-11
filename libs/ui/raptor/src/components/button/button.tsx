@@ -1,52 +1,40 @@
-import React from 'react';
-import { RpSpinner } from '../spinner';
-import { ButtonProps } from './button.type';
-import { BTN_CLASSES } from './button.style';
+import * as React from 'react';
+import { Slot } from '@radix-ui/react-slot';
+import { type VariantProps } from 'class-variance-authority';
+import { cn } from '@libs/utils';
+import { Loader2 } from 'lucide-react'; // Import the loading icon
+import { buttonVariants } from './button.style';
 
-const RpButton: React.FC<ButtonProps> = ({
-  children,
-  type = 'button',
-  onClick,
-  variant = 'default',
-  disabled = false,
-  className,
-  size = 'md',
-  loading,
-  key,
-  icon,
-  onSubmit,
-  onReset,
-}) => {
-  return (
-    <button
-      type={type}
-      onClick={onClick}
-      onSubmit={onSubmit}
-      onReset={onReset}
-      disabled={disabled || loading}
-      className={`${BTN_CLASSES.base} ${BTN_CLASSES.variant[variant]} ${disabled || loading ? BTN_CLASSES.disabled : ''} ${className} ${BTN_CLASSES.size[size]} ${
-        icon?.position === 'left' ? BTN_CLASSES.icon.left : BTN_CLASSES.icon.right
-      }`}
-      key={key}
-    >
-      <div className='relative flex items-center justify-center gap-2'>
-        {icon && icon.position === 'left' && (
-          <>
-            {loading && <RpSpinner size={size} />}
-            {!loading && icon.element}
-          </>
-        )}
-        {children}
-        {icon && icon.position === 'right' && (
-          <>
-            {loading && <RpSpinner size={size} />}
-            {!loading && icon.element}
-          </>
-        )}
-      </div>
-    </button>
-  );
-};
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
+  isLoading?: boolean;
+}
 
-RpButton.displayName = 'RpButton';
-export default RpButton;
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, isLoading, children, ...props }, ref) => {
+    const Comp = asChild ? Slot : 'button';
+
+    return (
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        disabled={isLoading || props.disabled}
+        {...props}
+      >
+        {isLoading ? (
+          <>
+            <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+            {children}
+          </>
+        ) : (
+          children
+        )}
+      </Comp>
+    );
+  }
+);
+Button.displayName = 'Button';
+
+export { Button, buttonVariants };

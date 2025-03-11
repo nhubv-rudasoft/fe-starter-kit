@@ -1,107 +1,134 @@
-import React, { useMemo } from 'react';
-import classNames from 'classnames';
-import { TextInputProps } from './text-input.type';
-import { TEXT_INPUT_CLASSES } from './text-input.style';
+import * as React from 'react';
+import { cn } from '@libs/utils';
 
-// Memoized Input component
-const MemoizedInput = React.memo(
-  ({
-    rpType = 'text',
-    rpVariant = 'default',
-    rpSize = 'md',
-    rpIcon,
-    className,
-    ...rest
-  }: Omit<TextInputProps, 'rpLabel'> & { className?: string }) => {
-    return <input type={rpType} className={className} {...rest} />;
-  }
-);
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  /**
+   * The variant of the input
+   * @default "outline"
+   */
+  variant?: 'outline' | 'filled' | 'ghost' | 'underline';
 
-MemoizedInput.displayName = 'MemoizedInput';
+  /**
+   * The size of the input
+   * @default "md"
+   */
+  inputSize?: 'sm' | 'md' | 'lg';
 
-// Memoized Label component
-const MemoizedLabel = React.memo(
-  ({ label, htmlFor }: { label: NonNullable<TextInputProps['rpLabel']>; htmlFor?: string }) => {
-    const labelClasses = classNames(TEXT_INPUT_CLASSES.label.base, label.className);
+  /**
+   * Icon to display on the left side of the input
+   */
+  leftIcon?: React.ReactNode;
+
+  /**
+   * Icon to display on the right side of the input
+   */
+  rightIcon?: React.ReactNode;
+
+  /**
+   * Error message to display below the input
+   */
+  error?: string;
+
+  /**
+   * Helper text to display below the input
+   */
+  helperText?: string;
+
+  /**
+   * Whether the input is in an error state
+   */
+  isError?: boolean;
+
+  /**
+   * Whether the input is in a success state
+   */
+  isSuccess?: boolean;
+
+  /**
+   * The container className
+   */
+  containerClassName?: string;
+}
+
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  (
+    {
+      className,
+      type,
+      variant = 'outline',
+      inputSize = 'md',
+      leftIcon: LeftIcon,
+      rightIcon: RightIcon,
+      error,
+      helperText,
+      isError,
+      isSuccess,
+      containerClassName,
+      ...props
+    },
+    ref
+  ) => {
+    // Determine the base styles based on variant
+    const variantStyles = {
+      outline: 'border border-input bg-background',
+      filled: 'border border-transparent bg-muted/50',
+      ghost: 'border border-transparent bg-transparent',
+      underline: 'border-0 border-b border-input bg-transparent rounded-none px-0',
+    };
+
+    // Determine the size styles
+    const sizeStyles = {
+      sm: 'h-8 text-xs px-2 py-1',
+      md: 'h-10 text-base px-3 py-2 md:text-sm',
+      lg: 'h-11 text-lg px-4 py-3',
+    };
+
+    // Determine the state styles
+    const stateStyles = isError
+      ? 'border-red-500 focus-visible:ring-red-500 text-red-500 placeholder:text-red-400'
+      : isSuccess
+        ? 'border-green-500 focus-visible:ring-green-500'
+        : '';
 
     return (
-      <label htmlFor={htmlFor} className={labelClasses}>
-        {label.text}
-        {label.required && <span className={TEXT_INPUT_CLASSES.label.required}>*</span>}
-      </label>
+      <div className={cn('flex flex-col space-y-1 w-full', containerClassName)}>
+        <div className='relative flex items-center w-full'>
+          {LeftIcon && (
+            <div className='absolute left-3 flex items-center pointer-events-none'>{LeftIcon}</div>
+          )}
+
+          <input
+            type={type}
+            className={cn(
+              'flex w-full rounded-md ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50',
+              variantStyles[variant],
+              sizeStyles[inputSize],
+              stateStyles,
+              LeftIcon && 'pl-9',
+              RightIcon && 'pr-9',
+              className
+            )}
+            ref={ref}
+            {...props}
+          />
+
+          {RightIcon && (
+            <div className='absolute right-3 flex items-center pointer-events-none'>
+              {RightIcon}
+            </div>
+          )}
+        </div>
+
+        {(error || helperText) && (
+          <p className={cn('text-xs', error || isError ? 'text-red-500' : 'text-muted-foreground')}>
+            {error || helperText}
+          </p>
+        )}
+      </div>
     );
   }
 );
 
-MemoizedLabel.displayName = 'MemoizedLabel';
+Input.displayName = 'Input';
 
-// Main component
-const RaptorTextInput = React.memo((props: TextInputProps) => {
-  const {
-    rpLabel,
-    rpType = 'text',
-    rpVariant = 'default',
-    rpSize = 'md',
-    rpIcon,
-    rpWrapperClassName,
-    className,
-    id,
-    name,
-    ...rest
-  } = props;
-
-  const elementId = id || name;
-
-  // Memoize the input classes
-  const inputClasses = useMemo(
-    () =>
-      classNames(
-        TEXT_INPUT_CLASSES.base,
-        TEXT_INPUT_CLASSES.size[rpSize],
-        TEXT_INPUT_CLASSES.variant[rpVariant],
-        rpIcon && TEXT_INPUT_CLASSES.icon.left,
-        className
-      ),
-    [rpSize, rpVariant, rpIcon, className]
-  );
-
-  // If no label, just render the input
-  if (!rpLabel) {
-    return (
-      <MemoizedInput
-        rpType={rpType}
-        rpVariant={rpVariant}
-        rpSize={rpSize}
-        rpIcon={rpIcon}
-        className={inputClasses}
-        id={id}
-        name={name}
-        {...rest}
-      />
-    );
-  }
-
-  // With label, render both in appropriate layout
-  const position = rpLabel.position || 'top';
-  const flexDirection = position === 'top' ? 'flex-col' : 'flex-row';
-  const containerClass = classNames(`flex ${flexDirection} gap-2`, rpWrapperClassName);
-
-  return (
-    <div key={elementId} className={containerClass}>
-      <MemoizedLabel label={rpLabel} htmlFor={elementId} />
-      <MemoizedInput
-        rpType={rpType}
-        rpVariant={rpVariant}
-        rpSize={rpSize}
-        rpIcon={rpIcon}
-        className={inputClasses}
-        id={id}
-        name={name}
-        {...rest}
-      />
-    </div>
-  );
-});
-
-RaptorTextInput.displayName = 'RaptorTextInput';
-export default RaptorTextInput;
+export { Input };

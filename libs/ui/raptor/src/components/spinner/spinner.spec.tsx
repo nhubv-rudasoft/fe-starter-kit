@@ -1,6 +1,5 @@
 import { render } from '@testing-library/react';
-
-import { RpSpinner } from './spinner';
+import { RpSpinner } from '@libs/ui/raptor';
 
 // TODO: Add tests for the RpSpinner component
 describe('RpSpinner', () => {
