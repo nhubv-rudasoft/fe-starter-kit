@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import RpSpinner from './spinner';
+import { default as Spinner } from './spinner';
 
-const meta: Meta<typeof RpSpinner> = {
+const meta: Meta<typeof Spinner> = {
   title: 'Raptor/Components/Spinner',
-  component: RpSpinner,
+  component: Spinner,
   parameters: {
     layout: 'centered',
   },
@@ -27,12 +27,16 @@ const meta: Meta<typeof RpSpinner> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof RpSpinner>;
+type Story = StoryObj<typeof Spinner>;
 
 // Default spinner
 export const Default: Story = {
   args: {},
-  render: () => <RpSpinner />,
+  render: () => (
+    <div className='flex items-center gap-4'>
+      <Spinner size='md' color='black' />
+    </div>
+  ),
 };
 
 // Sizes
@@ -40,27 +44,44 @@ export const Small: Story = {
   args: {
     size: 'sm',
   },
+  render: () => (
+    <div className='flex items-center gap-4'>
+      <Spinner size='sm' color='black' />
+    </div>
+  ),
 };
 
 export const Medium: Story = {
   args: {
     size: 'md',
   },
-  render: () => <RpSpinner size='md' />,
+  render: () => (
+    <div className='flex items-center gap-4'>
+      <Spinner size='md' color='black' />
+    </div>
+  ),
 };
 
 export const Large: Story = {
   args: {
     size: 'lg',
   },
-  render: () => <RpSpinner size='lg' />,
+  render: () => (
+    <div className='flex items-center gap-4'>
+      <Spinner size='xl' color='black' />
+    </div>
+  ),
 };
 
 export const ExtraLarge: Story = {
   args: {
     size: 'xl',
   },
-  render: () => <RpSpinner size='xl' color='black' />,
+  render: () => (
+    <div className='flex items-center gap-4'>
+      <Spinner size='xl' color='black' />
+    </div>
+  ),
 };
 
 // Colors
@@ -73,10 +94,10 @@ export const White: Story = {
   },
   render: () => (
     <div className='flex flex-col gap-8'>
-      <RpSpinner size='sm' color='white' />
-      <RpSpinner size='md' color='white' />
-      <RpSpinner size='lg' color='white' />
-      <RpSpinner size='xl' color='white' />
+      <Spinner size='sm' color='white' />
+      <Spinner size='md' color='white' />
+      <Spinner size='lg' color='white' />
+      <Spinner size='xl' color='white' />
     </div>
   ),
 };
@@ -87,10 +108,10 @@ export const Black: Story = {
   },
   render: () => (
     <div className='flex flex-col gap-8'>
-      <RpSpinner size='sm' color='black' />
-      <RpSpinner size='md' color='black' />
-      <RpSpinner size='lg' color='black' />
-      <RpSpinner size='xl' color='black' />
+      <Spinner size='sm' color='black' />
+      <Spinner size='md' color='black' />
+      <Spinner size='lg' color='black' />
+      <Spinner size='xl' color='black' />
     </div>
   ),
 };
@@ -100,16 +121,16 @@ export const AllVariants: Story = {
   render: () => (
     <div className='flex flex-col gap-8'>
       <div className='flex items-center gap-4'>
-        <RpSpinner size='sm' color='black' />
-        <RpSpinner size='md' color='black' />
-        <RpSpinner size='lg' color='black' />
-        <RpSpinner size='xl' color='black' />
+        <Spinner size='sm' color='black' />
+        <Spinner size='md' color='black' />
+        <Spinner size='lg' color='black' />
+        <Spinner size='xl' color='black' />
       </div>
       <div className='flex items-center gap-4 bg-gray-800 p-4 rounded'>
-        <RpSpinner size='sm' color='white' />
-        <RpSpinner size='md' color='white' />
-        <RpSpinner size='lg' color='white' />
-        <RpSpinner size='xl' color='white' />
+        <Spinner size='sm' color='white' />
+        <Spinner size='md' color='white' />
+        <Spinner size='lg' color='white' />
+        <Spinner size='xl' color='white' />
       </div>
     </div>
   ),

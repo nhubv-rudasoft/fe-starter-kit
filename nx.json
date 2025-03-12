@@ -18,7 +18,6 @@
     ],
     "sharedGlobals": ["{workspaceRoot}/.gitlab-ci.yml"]
   },
-  "nxCloudId": "67c7ce177de39e55a5bbe678",
   "plugins": [
     {
       "plugin": "@nx/vite/plugin",

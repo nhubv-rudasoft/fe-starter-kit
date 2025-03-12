@@ -1,51 +1,51 @@
 import { render } from '@testing-library/react';
-import { RpSpinner } from '@libs/ui/raptor';
+import { Spinner } from '@libs/ui/raptor';
 
 // TODO: Add tests for the RpSpinner component
-describe('RpSpinner', () => {
+describe('Spinner', () => {
   it('should render successfully', () => {
-    render(<RpSpinner />);
+    render(<Spinner color='black' />);
   });
 });
 
 // TODO: Test the size sm prop
-describe('RpSpinner size prop', () => {
+describe('Spinner size prop', () => {
   it('should render successfully', () => {
-    render(<RpSpinner size='sm' />);
+    render(<Spinner size='sm' />);
   });
 });
 
 // TODO: Test the size md prop
 describe('RpSpinner size prop', () => {
   it('should render successfully', () => {
-    render(<RpSpinner size='md' />);
+    render(<Spinner size='md' />);
   });
 });
 
 // TODO: Test the size lg prop
 describe('RpSpinner size prop', () => {
   it('should render successfully', () => {
-    render(<RpSpinner size='lg' />);
+    render(<Spinner size='lg' />);
   });
 });
 
 // TODO: Test the size xl prop
 describe('RpSpinner size prop', () => {
   it('should render successfully', () => {
-    render(<RpSpinner size='xl' />);
+    render(<Spinner size='xl' />);
   });
 });
 
 // TODO: Test the color prop
 describe('RpSpinner color prop', () => {
   it('should render successfully', () => {
-    render(<RpSpinner color='white' />);
+    render(<Spinner color='white' />);
   });
 });
 
 // TODO: Test the className prop
 describe('RpSpinner className prop', () => {
   it('should render successfully', () => {
-    render(<RpSpinner className='test-class' />);
+    render(<Spinner className='test-class' />);
   });
 });
